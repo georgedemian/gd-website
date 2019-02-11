@@ -23,9 +23,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/large.css",
+              "src/assets/fonts/stylesheet.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery-3.0.0.min.js",
+              "src/assets/js/jquery.bxslider.min.js"
+            ]
           },
           "configurations": {
             "production": {
