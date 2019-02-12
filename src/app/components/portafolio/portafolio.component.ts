@@ -11,23 +11,29 @@ export class PortafolioComponent implements OnInit {
   navBar:boolean;
   id:string;
   title: string;
-  //albums: Albums;
-   albums: any = [];
+  //lista: Albums[];
   // albumIds: any = {};
   constructor(private router: ActivatedRoute, private flickr: FlickrService ) {
     this.navBar = true;
     this.router.params.subscribe( params =>{
+      //this.lista =
       this.getCollection(params['id']);
+      //JSON.parse(this.lista);
+      //console.log(this.lista);
+      //console.log(this.lista);
+            //console.log(this.lista);
       // console.log( params['id']);
     })
    }
 
    getCollection(id: string){
      //console.log(this.flickr.getAlbumsFormat(id));
-    this.albums = this.flickr.getAlbumsFormat(id);
+    //this.albums = this.flickr.getAlbumsFormat(id);
+
+    //this.albums = response[0];
      // .subscribe(collection =>{
-       //console.log(collection);
-       //console.log(collection[0].set);
+      return this.flickr.getAlbumsFormat(id);
+       //console.log(this.lista);
        // this.title = collection[0].title;
        // this.albums = collection[0].set;
        // this.albums = collection;
@@ -39,7 +45,6 @@ export class PortafolioComponent implements OnInit {
      // });
      // this.flickr.getAlbumsFormat(id);
      // .subscribe( data => console.log(data));
-     console.log(this.albums[0]);
    }
 
   ngOnInit() {

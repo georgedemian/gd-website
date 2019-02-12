@@ -8,6 +8,7 @@ import { Albums, AlbumItem } from '../components/models';
 export class FlickrService {
   primary: string;
   albums: Albums[] = [];
+  // albums: Albums[] = [];
   constructor(private http: HttpClient) {
   }
 
@@ -22,12 +23,12 @@ export class FlickrService {
   }
 
   getPopular(){
-    return this.getQuery(`flickr.photos.getPopular&api_key=59c7bf51d98b2c8235980c0e90ec626b&format=json&user_id=60915215@N05&per_page=5&nojsoncallback=true`)
+    return this.getQuery(`flickr.photos.getPopular&api_key=59c7bf51d98b2c8235980c0e90ec626b&format=json&user_id=60915215@N05&per_page=5&nojsoncallback=1`)
     .pipe( map( data => data['photos'].photo));
   }
 
   getCollections(id:string){
-    return this.getQuery(`flickr.collections.getTree&api_key=59c7bf51d98b2c8235980c0e90ec626b&format=json&user_id=60915215@N05&nojsoncallback=true&collection_id=${id}`)
+    return this.getQuery(`flickr.collections.getTree&api_key=59c7bf51d98b2c8235980c0e90ec626b&format=json&user_id=60915215@N05&nojsoncallback=1&collection_id=${id}`)
     .pipe( map( data => data['collections'].collection));
   }
   getAlbum(id:string){
@@ -42,35 +43,34 @@ export class FlickrService {
     const albumFullResponse = this.getCollections(id).pipe( map( data => data[0]));
     const albumsFullSubscribe = albumFullResponse.subscribe(data=> {
       console.log(data);
+      //let albumGroup = {id : data.id, title: data.title }
       let albumGroup = new Albums(data.id, data.title);
       this.albums.push(albumGroup);
     });
     const albumsSubscribe = albumsResponse.subscribe(
       data => {
-        console.log(data);
         //this.albums.push(new Albums(data))
+        let nalbum;
         for (let i of data) {
             let imgP: string;
             const imgResponse =  this.getPrimaryAlbum(i.id).subscribe(img=> {
                 //console.log(img);
                 imgP = img;
-                let nalbum = new AlbumItem(
-                  i.id, i.title, imgP
-                );
-                console.log(nalbum);
+                nalbum = new AlbumItem(i.id, i.title, imgP);
                 this.albums[0].albumsG.push(nalbum);
-                //console.log(this.albums[0]);
 
               });
            }
+           //this.albums.albumsG.push(nalbum);
+           //this.albums['albumsG'].push(nalbum);
+           console.log(this.albums[0]);
       }
     );
-    console.log(this.albums);
     return this.albums;
   }
   getPrimaryAlbum(id: string){
     return this.getAlbum(id)
-    .pipe( map(data => data.primary));
+    .pipe( map(data => data['primary']));
   }
   //   const albumIMGResponse = this.getAlbum(id).pipe( map(data => data.primary));
   //   // const albumIMG = albumIMGResponse.subscribe(data => console.log(data.primary));
