@@ -1,19 +1,25 @@
-import { albumItem } from './album-item.model';
-export class albums {
+import { AlbumItem } from './album-item.model';
+export class Albums {
 
-    collectionId: number;
-    albums: albumItem[];
+    //albumgrupote : any[];
+    id : number;
+    title: string;
+    primary: string;
+    prueba: string;
+    albums: AlbumItem[];
 
-    constructor( collectionId: number ) {
+    constructor( albumsID: number, title: string, albumIMG: string ) {
 
-        this.collectionId = collectionId;
-
+        //this.albumgrupote = albumGroup;
+        this.id = albumsID;
+        this.title = title;
+        this.primary = albumIMG;
+        this.prueba= " ";
         // this.terminada = false;
         // this.creadaEn = new Date();
         this.albums = [];
 
         // this.id = new Date().getTime();
-
     }
 
 }

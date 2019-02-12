@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import { FlickrService } from '../../services/flickr.service';
-
+import {Albums} from '../models';
 @Component({
   selector: 'app-portafolio',
   templateUrl: './portafolio.component.html',
@@ -11,7 +11,8 @@ export class PortafolioComponent implements OnInit {
   navBar:boolean;
   id:string;
   title: string;
-  albums: any = [];
+  albums: Albums[] = [];
+  // albums: any = [];
   albumIds: any = {};
   formatedAlbums: any = {};
   constructor(private router: ActivatedRoute, private flickr: FlickrService ) {
@@ -27,10 +28,17 @@ export class PortafolioComponent implements OnInit {
      .subscribe(collection =>{
        //console.log(collection);
        //console.log(collection[0].set);
-       this.title = collection[0].title;
-       this.albums = collection[0].set;
-       this.newAlbumsFormat(this.albums);
+       // this.title = collection[0].title;
+       // this.albums = collection[0].set;
+       this.albums = collection;
+       // for (let i of this.albums[0].set) {
+       //     console.log(i.id); // "4", "5", "6"
+       //  }
+       //
+       // console.log(this.albums[0].set.length);
      });
+     this.flickr.getAlbumsFormat(id);
+     // .subscribe( data => console.log(data));
    }
 
    newAlbumsFormat(albums:any){

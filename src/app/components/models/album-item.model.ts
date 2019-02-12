@@ -1,6 +1,6 @@
 import { FlickrService } from '../../services/flickr.service';
 
-export class albumItem {
+export class AlbumItem {
 
     id: number;
     desc: string;
