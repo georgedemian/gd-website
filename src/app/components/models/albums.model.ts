@@ -5,21 +5,18 @@ export class Albums {
     id : number;
     title: string;
     primary: string;
-    prueba: string;
-    albums: AlbumItem[];
+    albumsG: AlbumItem[];
 
-    constructor( albumsID: number, title: string, albumIMG: string ) {
+    // constructor( albumsID: number, title: string, albumIMG: string ) {
+    constructor( id: number, title: string) {
 
         //this.albumgrupote = albumGroup;
-        this.id = albumsID;
+        // this.id = albumsID;
+        this.id = id;
         this.title = title;
-        this.primary = albumIMG;
-        this.prueba= " ";
-        // this.terminada = false;
-        // this.creadaEn = new Date();
-        this.albums = [];
+        // this.primary = albumIMG;
 
-        // this.id = new Date().getTime();
+        this.albumsG = [];
     }
 
 }

@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from 'rxjs/operators';
-import { Albums } from '../components/models';
+import { Albums, AlbumItem } from '../components/models';
 @Injectable({
   providedIn: 'root'
 })
 export class FlickrService {
   primary: string;
-  albumsAny: any;
   albums: Albums[] = [];
   constructor(private http: HttpClient) {
   }
@@ -40,32 +39,38 @@ export class FlickrService {
     console.log("callin service");
     let imgID : number;
     const albumsResponse = this.getCollections(id).pipe( map( data => data[0].set));
-
+    const albumFullResponse = this.getCollections(id).pipe( map( data => data[0]));
+    const albumsFullSubscribe = albumFullResponse.subscribe(data=> {
+      console.log(data);
+      let albumGroup = new Albums(data.id, data.title);
+      this.albums.push(albumGroup);
+    });
     const albumsSubscribe = albumsResponse.subscribe(
       data => {
-
+        console.log(data);
         //this.albums.push(new Albums(data))
         for (let i of data) {
             let imgP: string;
             const imgResponse =  this.getPrimaryAlbum(i.id).subscribe(img=> {
                 //console.log(img);
                 imgP = img;
-                //data = data;
-                let album = new Albums(
+                let nalbum = new AlbumItem(
                   i.id, i.title, imgP
                 );
-                this.albums.push(album);
-                //console.log(album);
+                console.log(nalbum);
+                this.albums[0].albumsG.push(nalbum);
+                //console.log(this.albums[0]);
 
               });
            }
       }
     );
     console.log(this.albums);
+    return this.albums;
   }
   getPrimaryAlbum(id: string){
     return this.getAlbum(id)
-    .pipe( map(data => data.primary))
+    .pipe( map(data => data.primary));
   }
   //   const albumIMGResponse = this.getAlbum(id).pipe( map(data => data.primary));
   //   // const albumIMG = albumIMGResponse.subscribe(data => console.log(data.primary));
@@ -73,4 +78,4 @@ export class FlickrService {
   //     console.log(data)
   //     this.primary = data;
   //   });
-  // }
+   }
