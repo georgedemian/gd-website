@@ -7,7 +7,7 @@ import { Albums, AlbumItem } from '../components/models';
 })
 export class FlickrService {
   primary: string;
-  albums: Albums[] = [];
+  albums: Albums;
   // albums: Albums[] = [];
   constructor(private http: HttpClient) {
   }
@@ -37,45 +37,33 @@ export class FlickrService {
   }
 
   getAlbumsFormat(id:string){
+
     console.log("callin service");
     let imgID : number;
-    const albumsResponse = this.getCollections(id).pipe( map( data => data[0].set));
     const albumFullResponse = this.getCollections(id).pipe( map( data => data[0]));
     const albumsFullSubscribe = albumFullResponse.subscribe(data=> {
-      console.log(data);
-      //let albumGroup = {id : data.id, title: data.title }
-      let albumGroup = new Albums(data.id, data.title);
-      this.albums.push(albumGroup);
+      this.albums = new Albums(data.id, data.title);
     });
+    const albumsResponse = this.getCollections(id).pipe( map( data => data[0].set));
     const albumsSubscribe = albumsResponse.subscribe(
       data => {
-        //this.albums.push(new Albums(data))
-        let nalbum;
         for (let i of data) {
             let imgP: string;
             const imgResponse =  this.getPrimaryAlbum(i.id).subscribe(img=> {
-                //console.log(img);
                 imgP = img;
-                nalbum = new AlbumItem(i.id, i.title, imgP);
-                this.albums[0].albumsG.push(nalbum);
-
               });
+
+            const nalbum = new AlbumItem(i.id, i.title, imgP);
+            //this.albums['albumsG'][i] = new AlbumItem(i.id, i.title, imgP);
+            this.albums['albumsG'].push(nalbum);
            }
-           //this.albums.albumsG.push(nalbum);
-           //this.albums['albumsG'].push(nalbum);
-           console.log(this.albums[0]);
       }
     );
+
     return this.albums;
   }
   getPrimaryAlbum(id: string){
     return this.getAlbum(id)
     .pipe( map(data => data['primary']));
   }
-  //   const albumIMGResponse = this.getAlbum(id).pipe( map(data => data.primary));
-  //   // const albumIMG = albumIMGResponse.subscribe(data => console.log(data.primary));
-  //   const albumIMG = albumIMGResponse.subscribe(data => {
-  //     console.log(data)
-  //     this.primary = data;
-  //   });
    }
