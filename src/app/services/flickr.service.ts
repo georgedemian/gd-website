@@ -7,9 +7,10 @@ import { Albums, AlbumItem } from '../components/models';
 })
 export class FlickrService {
   primary: string;
-  albums: Albums;
-  // albums: Albums[] = [];
+  //albums: Albums;
+   albums: Albums[] = [];
   constructor(private http: HttpClient) {
+
   }
 
   getQuery( query: string ){
@@ -41,9 +42,11 @@ export class FlickrService {
     console.log("callin service");
     let imgID : number;
     const albumFullResponse = this.getCollections(id).pipe( map( data => data[0]));
-    const albumsFullSubscribe = albumFullResponse.subscribe(data=> {
-      this.albums = new Albums(data.id, data.title);
+    const albumsFullSubscribe = albumFullResponse.subscribe((data:any)=> {
+      this.albums['id'] = data.id;
+      this.albums['title'] = data.title;
     });
+    this.albums['albumsG']= [];
     const albumsResponse = this.getCollections(id).pipe( map( data => data[0].set));
     const albumsSubscribe = albumsResponse.subscribe(
       data => {
@@ -54,12 +57,12 @@ export class FlickrService {
               });
 
             const nalbum = new AlbumItem(i.id, i.title, imgP);
-            //this.albums['albumsG'][i] = new AlbumItem(i.id, i.title, imgP);
+
             this.albums['albumsG'].push(nalbum);
            }
       }
     );
-
+    //console.log(this.albums);
     return this.albums;
   }
   getPrimaryAlbum(id: string){

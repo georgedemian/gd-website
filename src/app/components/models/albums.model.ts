@@ -1,6 +1,6 @@
 import { AlbumItem } from './album-item.model';
 export class Albums {
-
+  [x: string]: any;
     //albumgrupote : any[];
     id : number;
     title: string;
