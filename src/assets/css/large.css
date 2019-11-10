@@ -17,6 +17,14 @@ p { font-family: 'DidotLTStdTR-Italic';}
 footer{ font-family: 'BergenSans';}
 
 a { text-decoration: none; }
+
+.big-container{
+	box-sizing: border-box;
+	margin:0 auto;
+	text-align: center;
+	width: 90%;
+
+}
 .bx-viewport, .bx-wrapper {
     position: relative;
     width: 100%;
@@ -280,8 +288,9 @@ padding: 5em 0px;
 
 }
 	.catalog .item{
+		cursor:pointer;
 		flex-grow: 1;
-		flex: 1 1 45%;
+		flex: 1 1 30%;
 		height: auto;
 		margin:10px 0 0 10px;
 		width: 45%;
@@ -303,6 +312,12 @@ padding: 5em 0px;
 			margin: 60px auto;
 			box-shadow:none;
 		}
+
+#albumGallery{}
+	#albumGallery img{
+		width: 70%;
+		margin: 10px auto;
+	}
 /* FOOTER */
 
 #footer_cut { padding-top:40px; clear:both; }

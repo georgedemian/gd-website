@@ -1,0 +1,5 @@
+<div class="big-container" id="albumGallery">
+
+  <img *ngFor="let item of albumPhotos" src="https://farm{{item.farm}}.staticflickr.com/{{item.server}}/{{item.id}}_{{item.secret}}_h.jpg" alt="">
+
+</div>

@@ -21,6 +21,7 @@ export class PortafolioComponent implements OnInit {
       this.id = params['id']
     });
     this.albums = this.flickr.getAlbumsFormat(this.id);
+    console.log(this.albums);
    }
 
    getCollection(id: string){

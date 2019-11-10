@@ -40,7 +40,10 @@ export class FlickrService {
   getAlbumsFormat(id:string){
 
     console.log("callin service");
-    let imgID : number;
+    let imgID : string ;
+    let imgsecret :string;
+    let imgserver :string;
+    let imgfarm: string
     const albumFullResponse = this.getCollections(id).pipe( map( data => data[0]));
     const albumsFullSubscribe = albumFullResponse.subscribe((data:any)=> {
       this.albums['id'] = data.id;
@@ -51,22 +54,31 @@ export class FlickrService {
     const albumsSubscribe = albumsResponse.subscribe(
       data => {
         for (let i of data) {
-            let imgP: string;
+
             const imgResponse =  this.getPrimaryAlbum(i.id).subscribe(img=> {
-                imgP = img;
+              console.log(img);
+                imgID =  img.id;
+                imgsecret =  img.secret;
+                imgserver =  img.server;
+                imgfarm = img.farm;
+                let nalbum = new AlbumItem(i.id, i.title, imgID, imgsecret, imgserver, imgfarm);
+
+                this.albums['albumsG'].push(nalbum);
               });
-
-            const nalbum = new AlbumItem(i.id, i.title, imgP);
-
-            this.albums['albumsG'].push(nalbum);
            }
       }
     );
-    //console.log(this.albums);
+    console.log(this.albums);
     return this.albums;
   }
   getPrimaryAlbum(id: string){
     return this.getAlbum(id)
-    .pipe( map(data => data['primary']));
+    .pipe( map(data => data['photo'][0]));
   }
-   }
+  getPrimaryAlbumURl(id: string){
+    this.getAlbum(id).pipe( map(
+      data => data['photo'][0]
+      //data => data['primary']
+    ))
+  }
+}

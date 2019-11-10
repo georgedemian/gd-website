@@ -15,10 +15,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AboutComponent } from './components/about/about.component';
 import { HomeComponent } from './components/home/home.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { AlbumComponent } from './components/album/album.component';
 
 //external
 import {SlideshowModule} from "ng-simple-slideshow";
 import { PortafolioComponent } from './components/portafolio/portafolio.component';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { PortafolioComponent } from './components/portafolio/portafolio.componen
     AboutComponent,
     HomeComponent,
     CarouselComponent,
-    PortafolioComponent
+    PortafolioComponent,
+    AlbumComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,12 @@
 						 <h1>{{albums.title}}</h1>
 							<div class="catalog">
 								<div class="item" *ngFor="let album of albums.albumsG">
-									<img src="_images/index/backgrounds/couples-bg.jpg" alt="">
+									<a href="album/{{album.id}}">
+									<img src="https://farm{{album.farm}}.staticflickr.com/{{album.server}}/{{album.primary}}_{{album.secret}}_b.jpg" alt="">
 									<p class="item-title">{{album.title}}</p>
+									</a>
 								</div><!-- end item -->
+
 							</div>
 							<div class="portafolio-related">
 								  <ul class="bxslider-related">
