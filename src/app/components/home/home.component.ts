@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FlickrService } from '../../services/flickr.service';
-
+import { NavbarComponent } from '../navbar/navbar.component';
+import { navBarService } from '../navbar/navbar.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
+  constructor( private flickr: FlickrService, public navBarService: navBarService) {
+    
+  }
 
-  navBar: boolean;
-  constructor( private flickr: FlickrService) {
-    this.navBar = true;
-
-   }
   ngOnInit() {
+    this.navBarService.hide();
   }
 
 }

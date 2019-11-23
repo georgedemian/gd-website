@@ -1,4 +1,4 @@
-<header>
+<header *ngIf="!nav.visible">
 	<div class="part-menu">
 		<a [routerLink]="['home']">INICIO</a>
 		<a [routerLink]="['about']" >ACERCA DE</a>

@@ -19,7 +19,8 @@ import { AlbumComponent } from './components/album/album.component';
 
 //external
 import {SlideshowModule} from "ng-simple-slideshow";
-import { PortafolioComponent } from './components/portafolio/portafolio.component';
+import { PortafolioDirectoryComponent } from './components/portafolio/portafolio.component';
+import { navBarService } from './components/navbar/navbar.service';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { PortafolioComponent } from './components/portafolio/portafolio.componen
     AboutComponent,
     HomeComponent,
     CarouselComponent,
-    PortafolioComponent,
+    PortafolioDirectoryComponent,
     AlbumComponent
   ],
   imports: [
@@ -40,7 +41,8 @@ import { PortafolioComponent } from './components/portafolio/portafolio.componen
     RouterModule.forRoot( APP_ROUTES, { useHash: false } )
   ],
   providers: [
-    FlickrService
+    FlickrService,
+    navBarService
   ],
   bootstrap: [AppComponent]
 })
